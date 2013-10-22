@@ -15,7 +15,10 @@
 	} );
 
 	vui.addClassInitializer(
-
-	);
+			'vui-moreLess',
+			function( node ) {
+				$( node ).vui_moreLess();
+			}
+		);
 
 } )( window.jQuery );
