@@ -24,18 +24,19 @@
 			this.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
 
 			$morelink.addClass( 'vui-moreless-link' );
+			$morelink.addClass( 'vui-link' );
 
-			var lineHeight = $moreless.attr( 'data-moreless-lineHeight') !== undefined ? $moreless.attr( 'data-moreless-lineHeight') : this.options.lineHeight;
+			var lineHeight = $moreless.attr( 'data-moreless-lineHeight' ) !== undefined ? $moreless.attr( 'data-moreless-lineHeight' ) : this.options.lineHeight;
 			$moreless.css( 'line-height', lineHeight );
 			
-			$breakafter = $moreless.find( '.vui-moreless-breakafter');
+			$breakafter = $moreless.find( '.vui-moreless-breakafter' );
 			var height = 0;
 
 			if( $breakafter.length ) {
 				$breakafter = $( $breakafter[0] );
 				height = ( $breakafter.position().top - $moreless.position().top ) + $breakafter.get(0).scrollHeight;
 			} else {
-				height = $moreless.attr( 'data-moreless-height') !== undefined ? $moreless.attr( 'data-moreless-height') : this.options.height; 
+				height = $moreless.attr( 'data-moreless-height' ) !== undefined ? $moreless.attr( 'data-moreless-height' ) : this.options.height; 
 
 				if( height.indexOf( '%' ) > -1 ) { //convert percent to px to prevent loss of transition
 					height = parseInt( ( $moreless.get( 0 ).scrollHeight * ( parseInt( height, 10 ) / 100 ) ) + 0.5, 10 );
