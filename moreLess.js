@@ -43,7 +43,7 @@
 				}
 			}
 
-			$moreless.css( 'height', height );
+			$moreless.height( height );
 			
 			if( !parseInt( height, 10 ) ) { // if height 0 force accessibility. 
 				this.options.accessible = true; 
@@ -54,6 +54,11 @@
 			$morelink.on( 'click', function( e ) {
 				me._switchMoreLess( $moreless, height, $morelink );
 			} );
+
+			if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
+				$morelink.css( 'display', 'none' );
+			}
+
 		},
 
 		_switchMoreLess: function( $moreless, inHeight, $morelink ) {
