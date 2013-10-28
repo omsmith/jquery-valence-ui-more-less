@@ -16,11 +16,10 @@
 			
 			var $moreless = $( this.element );
 			var $morelink = $( '<div>' );
+			var $moreblur = $( '<div class="vui-moreless-blur">'); //Added if no breakafter are set
+
 			$moreless.after( $morelink );
 
-			var $moreblur = $( '<div class="vui-moreless-blur">');
-			$moreless.after( $moreblur );
-			
 			this.options.title.more = $moreless.attr( 'data-moreless-moretitle' ) !== undefined ? $moreless.attr( 'data-moreless-moretitle' ) : this.options.title.more; 
 			this.options.title.less = $moreless.attr( 'data-moreless-lesstitle' ) !== undefined ? $moreless.attr( 'data-moreless-lesstitle' ) : this.options.title.less; 
 			this.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
@@ -37,16 +36,18 @@
 			if( $breakafter.length ) {
 				$breakafter = $( $breakafter[0] );
 				height = ( $breakafter.position().top - $moreless.position().top ) + $breakafter.get(0).scrollHeight;
+				$moreblur = null;
 			} else {
 				height = $moreless.attr( 'data-moreless-height' ) !== undefined ? $moreless.attr( 'data-moreless-height' ) : this.options.height; 
 
 				if( height.indexOf( '%' ) > -1 ) { //convert percent to px to prevent loss of transition
 					height = parseInt( ( $moreless.get( 0 ).scrollHeight * ( parseInt( height, 10 ) / 100 ) ) + 0.5, 10 );
 				}
+				$moreless.after( $moreblur );
 			}
 
 			$moreless.height( height );
-			
+
 			if( !parseInt( height, 10 ) ) { // if height 0 force accessibility. 
 				this.options.accessible = true; 
 			}
@@ -59,7 +60,9 @@
 
 			if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
 				$morelink.css( 'display', 'none' );
-				$moreblur.css( 'display', 'none' );
+				if( $moreblur ) {
+					$moreblur.css( 'display', 'none' );
+				}
 			} else {
 				$moreless.addClass( 'gradient-vertical' );
 			}
@@ -70,13 +73,17 @@
 			if( $moreless.hasClass( 'vui-moreless-more' ) ) {
 				$moreless.removeClass( 'vui-moreless-more' );
 				$moreless.addClass( 'gradient-vertical' );
-				$moreblur.css( 'display', 'block' );
+				if( $moreblur ) {
+					$moreblur.css( 'display', 'block' );
+				}
 				$moreless.css( 'height', inHeight );
 				this._accessibileButton( this.options.title.more, $morelink );
 			} else {
 				$moreless.addClass( 'vui-moreless-more' );
 				$moreless.removeClass( 'gradient-vertical' );
-				$moreblur.css( 'display', 'none' );
+				if( $moreblur ) {
+					$moreblur.css( 'display', 'none' );
+				}
 				$moreless.css( 'height', $moreless.get( 0 ).scrollHeight );
 				this._accessibileButton( this.options.title.less, $morelink );
 			}
