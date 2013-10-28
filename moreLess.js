@@ -6,8 +6,8 @@
 			height: '4em',
 			lineHeight: 'normal',
 			title: {
-				more: "More",
-				less: "Less"
+				more: "more",
+				less: "less"
 			}
 		},
 
@@ -48,10 +48,6 @@
 
 			$moreless.height( height );
 
-			if( !parseInt( height, 10 ) ) { // if height 0 force accessibility. 
-				me.options.accessible = true; 
-			}
-			
 			me._accessibileButton( me.options.title.more, $morelink );
 
 			$morelink.on( 'click', function( e ) {
@@ -72,7 +68,6 @@
 		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
 			if( $moreless.hasClass( 'vui-moreless-more' ) ) {
 				$moreless.removeClass( 'vui-moreless-more' );
-				$moreless.addClass( 'gradient-vertical' );
 				if( $moreblur ) {
 					$moreblur.css( 'display', 'block' );
 				}
@@ -80,7 +75,6 @@
 				this._accessibileButton( this.options.title.more, $morelink );
 			} else {
 				$moreless.addClass( 'vui-moreless-more' );
-				$moreless.removeClass( 'gradient-vertical' );
 				if( $moreblur ) {
 					$moreblur.css( 'display', 'none' );
 				}
