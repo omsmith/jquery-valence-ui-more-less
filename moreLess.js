@@ -17,9 +17,8 @@
 			var $moreless = $( this.element );
 			var $morelink = $( '<div class="vui-moreless-link vui-link">' );
 			
-
 			$moreless.after( $morelink );
-
+			
 			me.options.title.more = $moreless.attr( 'data-moreless-moretitle' ) !== undefined ? $moreless.attr( 'data-moreless-moretitle' ) : this.options.title.more; 
 			me.options.title.less = $moreless.attr( 'data-moreless-lesstitle' ) !== undefined ? $moreless.attr( 'data-moreless-lesstitle' ) : this.options.title.less; 
 			me.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
@@ -48,7 +47,7 @@
 
 			$moreless.height( height );
 
-			me._accessibileButton( me.options.title.more, $morelink );
+			me._accessibileButton( me.options.title.more, $morelink, 'vui-icon-cheverondownblue' );
 
 			$morelink.on( 'click', function( e ) {
 				me._switchMoreLess( $moreless, height, $morelink, $moreblur );
@@ -59,8 +58,6 @@
 				if( $moreblur ) {
 					$moreblur.css( 'display', 'none' );
 				}
-			} else {
-				$moreless.addClass( 'gradient-vertical' );
 			}
 
 		},
@@ -72,24 +69,25 @@
 					$moreblur.css( 'display', 'block' );
 				}
 				$moreless.css( 'height', inHeight );
-				this._accessibileButton( this.options.title.more, $morelink );
+				this._accessibileButton( this.options.title.more, $morelink, 'vui-icon-cheverondownblue' );
+
 			} else {
 				$moreless.addClass( 'vui-moreless-more' );
 				if( $moreblur ) {
 					$moreblur.css( 'display', 'none' );
 				}
 				$moreless.css( 'height', $moreless.get( 0 ).scrollHeight );
-				this._accessibileButton( this.options.title.less, $morelink );
+				this._accessibileButton( this.options.title.less, $morelink, 'vui-icon-cheveronupblue' );
 			}
 		},
 
-		_accessibileButton: function( title, $morelink ) {
+		_accessibileButton: function( title, $morelink, iconClass ) {
 
 			$morelink.empty();
-
+			$morelink.append( '<span class="' + iconClass + '">' );
 			if( !this.options.accessible ) {
 				$morelink.attr( 'aria-hidden', 'true' );
-				$morelink.text( title );
+				$morelink.append( title );
 			} else {
 				$morelink.attr( 'aria-role', 'button' );
 				title = $( '<span>' + title + '</span>' );
