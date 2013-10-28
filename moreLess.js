@@ -15,10 +15,12 @@
 			var me = this;
 			
 			var $moreless = $( this.element );
-			
 			var $morelink = $( '<div>' );
 			$moreless.after( $morelink );
 
+			var $moreblur = $( '<div class="vui-moreless-blur">');
+			$moreless.after( $moreblur );
+			
 			this.options.title.more = $moreless.attr( 'data-moreless-moretitle' ) !== undefined ? $moreless.attr( 'data-moreless-moretitle' ) : this.options.title.more; 
 			this.options.title.less = $moreless.attr( 'data-moreless-lesstitle' ) !== undefined ? $moreless.attr( 'data-moreless-lesstitle' ) : this.options.title.less; 
 			this.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
@@ -28,7 +30,7 @@
 
 			var lineHeight = $moreless.attr( 'data-moreless-lineHeight' ) !== undefined ? $moreless.attr( 'data-moreless-lineHeight' ) : this.options.lineHeight;
 			$moreless.css( 'line-height', lineHeight );
-			
+	
 			$breakafter = $moreless.find( '.vui-moreless-breakafter' );
 			var height = 0;
 
@@ -52,22 +54,29 @@
 			this._accessibileButton( this.options.title.more, $morelink );
 
 			$morelink.on( 'click', function( e ) {
-				me._switchMoreLess( $moreless, height, $morelink );
+				me._switchMoreLess( $moreless, height, $morelink, $moreblur );
 			} );
 
 			if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
 				$morelink.css( 'display', 'none' );
+				$moreblur.css( 'display', 'none' );
+			} else {
+				$moreless.addClass( 'gradient-vertical' );
 			}
 
 		},
 
-		_switchMoreLess: function( $moreless, inHeight, $morelink ) {
+		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
 			if( $moreless.hasClass( 'vui-moreless-more' ) ) {
 				$moreless.removeClass( 'vui-moreless-more' );
+				$moreless.addClass( 'gradient-vertical' );
+				$moreblur.css( 'display', 'block' );
 				$moreless.css( 'height', inHeight );
 				this._accessibileButton( this.options.title.more, $morelink );
 			} else {
 				$moreless.addClass( 'vui-moreless-more' );
+				$moreless.removeClass( 'gradient-vertical' );
+				$moreblur.css( 'display', 'none' );
 				$moreless.css( 'height', $moreless.get( 0 ).scrollHeight );
 				this._accessibileButton( this.options.title.less, $morelink );
 			}
