@@ -13,20 +13,17 @@
 
 		_create: function() {
 			var me = this;
-			
+			var $moreblur = null;
 			var $moreless = $( this.element );
-			var $morelink = $( '<div>' );
-			var $moreblur = $( '<div class="vui-moreless-blur">'); //Added if no breakafter are set
+			var $morelink = $( '<div class="vui-moreless-link vui-link">' );
+			
 
 			$moreless.after( $morelink );
 
-			this.options.title.more = $moreless.attr( 'data-moreless-moretitle' ) !== undefined ? $moreless.attr( 'data-moreless-moretitle' ) : this.options.title.more; 
-			this.options.title.less = $moreless.attr( 'data-moreless-lesstitle' ) !== undefined ? $moreless.attr( 'data-moreless-lesstitle' ) : this.options.title.less; 
-			this.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
-
-			$morelink.addClass( 'vui-moreless-link' );
-			$morelink.addClass( 'vui-link' );
-
+			me.options.title.more = $moreless.attr( 'data-moreless-moretitle' ) !== undefined ? $moreless.attr( 'data-moreless-moretitle' ) : this.options.title.more; 
+			me.options.title.less = $moreless.attr( 'data-moreless-lesstitle' ) !== undefined ? $moreless.attr( 'data-moreless-lesstitle' ) : this.options.title.less; 
+			me.options.accessible = $moreless.attr( 'data-moreless-accessible' ) !== undefined ? true : false;
+			
 			var lineHeight = $moreless.attr( 'data-moreless-lineHeight' ) !== undefined ? $moreless.attr( 'data-moreless-lineHeight' ) : this.options.lineHeight;
 			$moreless.css( 'line-height', lineHeight );
 	
@@ -35,24 +32,27 @@
 
 			if( $breakafter.length ) {
 				$breakafter = $( $breakafter[0] );
+				//determine hieght based on bottom on node with breakafter class
 				height = ( $breakafter.position().top - $moreless.position().top ) + $breakafter.get(0).scrollHeight;
-				$moreblur = null;
+				
 			} else {
 				height = $moreless.attr( 'data-moreless-height' ) !== undefined ? $moreless.attr( 'data-moreless-height' ) : this.options.height; 
 
 				if( height.indexOf( '%' ) > -1 ) { //convert percent to px to prevent loss of transition
 					height = parseInt( ( $moreless.get( 0 ).scrollHeight * ( parseInt( height, 10 ) / 100 ) ) + 0.5, 10 );
 				}
+
+				$moreblur = $( '<div class="vui-moreless-blur">');
 				$moreless.after( $moreblur );
 			}
 
 			$moreless.height( height );
 
 			if( !parseInt( height, 10 ) ) { // if height 0 force accessibility. 
-				this.options.accessible = true; 
+				me.options.accessible = true; 
 			}
 			
-			this._accessibileButton( this.options.title.more, $morelink );
+			me._accessibileButton( me.options.title.more, $morelink );
 
 			$morelink.on( 'click', function( e ) {
 				me._switchMoreLess( $moreless, height, $morelink, $moreblur );
