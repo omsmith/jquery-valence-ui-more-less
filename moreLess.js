@@ -53,13 +53,17 @@
 				me._switchMoreLess( $moreless, height, $morelink, $moreblur );
 			} );
 
-			if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
-				$morelink.css( 'display', 'none' );
-				if( $moreblur ) {
-					$moreblur.css( 'display', 'none' );
+			var  hideShowMore = function() {
+				if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
+					$morelink.css( 'display', 'none' );
+					if( $moreblur ) {
+						$moreblur.css( 'display', 'none' );
+					}
 				}
-			}
+			};
 
+			hideShowMore();
+			$moreless.ready( hideShowMore );
 		},
 
 		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
