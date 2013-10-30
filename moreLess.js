@@ -32,7 +32,7 @@
 			if( $breakafter.length ) {
 				$breakafter = $( $breakafter[0] );
 				//determine hieght based on bottom on node with breakafter class
-				height = $breakafter.position().top + $breakafter.get( 0 ).scrollHeight;
+				height = ( $breakafter.position().top - $moreless.position().top ) + $breakafter.get( 0 ).scrollHeight;
 
 			} else {
 				height = $moreless.attr( 'data-moreless-height' ) !== undefined ? $moreless.attr( 'data-moreless-height' ) : this.options.height;
