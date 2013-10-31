@@ -53,6 +53,14 @@
 				me._switchMoreLess( $moreless, height, $morelink, $moreblur );
 			} );
 
+			$morelink.on( 'keypress', function( e ) {
+				var keyCode = e.keyCode || e.which;
+
+				if( keyCode === 13 ) {
+					me._switchMoreLess( $moreless, height, $morelink, $moreblur );
+				}
+			} );
+
 			var  hideShowMore = function() {
 				if( $moreless.height() >= $moreless.get( 0 ).scrollHeight ) {
 					$morelink.css( 'display', 'none' );
