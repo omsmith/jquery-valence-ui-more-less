@@ -62,13 +62,26 @@
 				}
 			};
 
+			var isTab = false;
+
 			hideShowMore();
 			$moreless.ready( hideShowMore );
-			$moreless.focusin( function() {
-				if( !$moreless.hasClass( 'vui-moreless-more' ) ) {
+
+			$( document ).keydown( function( e ) {
+				var keyCode = e.keyCode || e.which;
+
+				if( keyCode === 9 ) {
+					isTab = true;
+				} else {
+					isTab = false;
+				}
+			} );
+
+			$moreless.focusin( function( event ) {
+				if( !$moreless.hasClass( 'vui-moreless-more' ) && isTab ) {
 					$moreless.get( 0 ).scrollTop = 0;
 					$morelink.focus();
-					//me._switchMoreLess( $moreless, height, $morelink, $moreblur );
+					isTab = false;
 				}
 			} );
 		},
