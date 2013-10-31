@@ -64,6 +64,13 @@
 
 			hideShowMore();
 			$moreless.ready( hideShowMore );
+			$moreless.focusin( function() {
+				if( !$moreless.hasClass( 'vui-moreless-more' ) ) {
+					$moreless.get( 0 ).scrollTop = 0;
+					$morelink.focus();
+					//me._switchMoreLess( $moreless, height, $morelink, $moreblur );
+				}
+			} );
 		},
 
 		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
