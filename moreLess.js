@@ -102,7 +102,7 @@
 				}
 				$moreless.css( 'height', inHeight );
 				this._accessibileButton( this.options.title.more, $morelink, 'vui-icon-cheverondownblue' );
-
+				$moreless.trigger( 'vui-moreless-collapse' );
 			} else {
 				$moreless.addClass( 'vui-moreless-more' );
 				if( $moreblur ) {
@@ -110,6 +110,7 @@
 				}
 				$moreless.css( 'height', $moreless.get( 0 ).scrollHeight );
 				this._accessibileButton( this.options.title.less, $morelink, 'vui-icon-cheveronupblue' );
+				$moreless.trigger( 'vui-moreless-expand' );
 			}
 		},
 
@@ -125,6 +126,10 @@
 				title = $( '<span>' + title + '</span>' );
 				$morelink.append( title );
 			}
+		},
+
+		isExpanded: function( node ) {
+			return $( node ).hasClass( 'vui-moreless-more' );
 		}
 	} );
 
