@@ -92,6 +92,8 @@
 					isTab = false;
 				}
 			} );
+
+			$moreless.bind('DOMSubtreeModified', hideShowMore ); //cases where contents are loaded late.
 		},
 
 		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
