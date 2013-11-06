@@ -73,7 +73,8 @@
 			var isTab = false;
 
 			hideShowMore();
-			$moreless.ready( hideShowMore );
+			
+			$moreless.load( hideShowMore );
 
 			$( document ).keydown( function( e ) {
 				var keyCode = e.keyCode || e.which;
@@ -93,7 +94,6 @@
 				}
 			} );
 
-			$moreless.bind('DOMSubtreeModified', hideShowMore ); //cases where contents are loaded late.
 		},
 
 		_switchMoreLess: function( $moreless, inHeight, $morelink, $moreblur ) {
