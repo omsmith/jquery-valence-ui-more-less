@@ -133,7 +133,8 @@
 
 		_hideShowMore: function() {
 			var me = this;
-			if( me._$moreless.height() >=  me._$moreless.get( 0 ).scrollHeight ) {
+			if( !me._$moreless.hasClass( 'vui-moreless-more' ) &&
+				me._$moreless.height() >=  me._$moreless.get( 0 ).scrollHeight ) {
 				me._$morelink.css( 'display', 'none' );
 				if( me._$moreblur ) {
 					me._$moreblur.css( 'display', 'none' );
@@ -150,7 +151,7 @@
 					me._$moreblur.css( 'display', 'block' );
 				}
 				me._$moreless.css( 'height', inHeight );
-				me._._accessibileButton(  me.options.title.more, 'vui-icon-cheverondownblue' );
+				me._accessibileButton(  me.options.title.more, 'vui-icon-cheverondownblue' );
 				me._$moreless.trigger( 'vui-moreless-collapse' );
 			} else {
 				me._$moreless.addClass( 'vui-moreless-more' );
@@ -202,7 +203,6 @@
 			this._hideShowMore();
 		}
 
-		
 	} );
 
 	vui.addClassInitializer(
