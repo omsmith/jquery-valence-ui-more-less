@@ -12,7 +12,7 @@
 			color: '#FAFAFA'
 		},
 
-		_$moreblur: null, 
+		_$moreblur: null,
 		_$moreless: null,
 		_$morelink: null,
 
@@ -32,7 +32,7 @@
 
 		_create: function() {
 			var me = this;
-			
+
 			me._$moreless = $( this.element );
 			me._$morelink = $( '<div class="vui-moreless-link vui-link" tabindex="0">' );
 			me._$moreless.after(  me._$morelink );
@@ -80,12 +80,10 @@
 					me._switchMoreLess( height );
 				}
 			} );
-			
+
 			var isTab = false;
 
 			me._hideShowMore();
-			
-			me._$moreless.load( me._hideShowMore );
 
 			$( document ).keydown( function( e ) {
 				var keyCode = e.keyCode || e.which;
@@ -133,8 +131,14 @@
 
 		_hideShowMore: function() {
 			var me = this;
-			if( !me._$moreless.hasClass( 'vui-moreless-more' ) &&
+			if( me._$moreless &&
+				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
 				me._$moreless.height() >=  me._$moreless.get( 0 ).scrollHeight ) {
+
+				var lastchild = me._$moreless.children().last();
+				var h = ( lastchild.position().top  - me._$moreless.position().top ) + lastchild.get(0).scrollHeight;
+				me._$moreless.height( h );
+
 				me._$morelink.css( 'display', 'none' );
 				if( me._$moreblur ) {
 					me._$moreblur.css( 'display', 'none' );
@@ -167,9 +171,9 @@
 		BlurColor: function( inColor ) {
 			var me = this;
 			if( me._$moreblur !== null ) {
-				var rgba0 = 'rgba( 250, 250, 250, 0)'; 
+				var rgba0 = 'rgba( 250, 250, 250, 0)';
 				var rgba1 = 'rgba( 250, 250, 250, 1)';
-			
+
 				if( inColor.indexOf( '#' ) > -1 ) {
 					var rgb = me._hexToRgb( inColor );
 					rgba0 = 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ', 0)';
@@ -184,18 +188,18 @@
 
 				me._$moreblur.css( { 'background': 'transparent' } )
 					.css( { 'background': moz } )
-					.css( { 'background': webkit1 } ) 
+					.css( { 'background': webkit1 } )
 					.css( { 'background': webkit2 } )
-					.css( { 'background': o } ) 
-					.css( { 'background': ms } ) 
-					.css( { 'background': general } ); 
+					.css( { 'background': o } )
+					.css( { 'background': ms } )
+					.css( { 'background': general } );
 			}
 		},
 
 		isExpanded: function( node ) {
 			return $( node ).hasClass( 'vui-moreless-more' );
 		},
-		
+
 		Refresh: function( inColor ){
 			if( inColor !== null ) {
 				this.BlurColor( inColor );
