@@ -83,8 +83,6 @@
 
 			var isTab = false;
 
-			me._hideShowMore();
-
 			$( document ).keydown( function( e ) {
 				var keyCode = e.keyCode || e.which;
 
@@ -102,7 +100,10 @@
 					isTab = false;
 				}
 			} );
-
+			me._hideShowMore();
+			$(window).load(function() { //chrome is returning a height of 0, need to wait for window to load to get correct height information
+				me._hideShowMore();
+			} );
 		},
 
 		_hexToRgb: function( inHex) {
@@ -138,8 +139,8 @@
 				var lastchild = me._$moreless.children().last();
 				var h = ( lastchild.position().top  - me._$moreless.position().top ) + lastchild.get(0).scrollHeight;
 				me._$moreless.height( h );
-
 				me._$morelink.css( 'display', 'none' );
+
 				if( me._$moreblur ) {
 					me._$moreblur.css( 'display', 'none' );
 				}
