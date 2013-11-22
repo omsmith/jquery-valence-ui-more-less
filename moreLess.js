@@ -1,6 +1,6 @@
 /*jslint browser: true*/
 
-( function( $, vui ) {
+( function( vui ) {
 
 	// Check if the provided vui global is defined, otherwise try to require it if
 	// we're in a CommonJS environment; otherwise we'll just fail out
@@ -17,6 +17,8 @@
 	if( typeof module === 'object' && typeof module.exports === 'object' ) {
 		module.exports = vui;
 	}
+	
+	var $ = vui.$;
 
 	$.widget( "vui.vui_moreless", {
 
@@ -63,7 +65,7 @@
 			var lineHeight =  me._$moreless.attr( 'data-moreless-lineHeight' ) !== undefined ? me._$moreless.attr( 'data-moreless-lineHeight' ) : me.options.lineHeight;
 			me._$moreless.css( 'line-height', lineHeight );
 
-			$breakafter =  me._$moreless.find( '.vui-moreless-breakafter' );
+			var $breakafter =  me._$moreless.find( '.vui-moreless-breakafter' );
 			var height = 0;
 
 			if( $breakafter.length ) {
@@ -235,4 +237,4 @@
 		}
 	);
 
-} )( window.jQuery, window.vui );
+} )( window.vui );
