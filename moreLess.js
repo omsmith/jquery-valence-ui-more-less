@@ -47,7 +47,7 @@
 			var lineHeight =  me._$moreless.attr( 'data-moreless-lineHeight' ) !== undefined ? me._$moreless.attr( 'data-moreless-lineHeight' ) : me.options.lineHeight;
 			me._$moreless.css( 'line-height', lineHeight );
 
-			$breakafter =  me._$moreless.find( '.vui-moreless-breakafter' );
+			var $breakafter =  me._$moreless.find( '.vui-moreless-breakafter' );
 			var height = 0;
 
 			if( $breakafter.length ) {
