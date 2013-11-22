@@ -1,6 +1,8 @@
 /*jslint browser: true*/
 
-( function( $, vui ) {
+( function( vui, $ ) {
+
+	$ = vui.$;
 
 	$.widget( "vui.vui_moreless", {
 
@@ -219,4 +221,4 @@
 		}
 	);
 
-} )( window.jQuery, window.vui );
+} )( window.vui );
