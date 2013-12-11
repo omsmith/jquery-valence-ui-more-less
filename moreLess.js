@@ -170,6 +170,11 @@
 
 		_switchMoreLess: function( inHeight ) {
 			var me = this;
+			
+			if (!me._$moreless.hasClass('vui-moreless-transition-effect')) {
+				me._$moreless.addClass('vui-moreless-transition-effect');
+			}
+
 			if( me._$moreless.hasClass( 'vui-moreless-more' ) ) {
 				me._$moreless.removeClass( 'vui-moreless-more' );
 				if( me._$moreblur ) {
