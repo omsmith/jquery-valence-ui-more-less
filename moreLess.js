@@ -87,7 +87,7 @@
 
 			me._$moreless.height( height );
 
-			me._accessibileButton( me.options.title.more, 'vui-icon-cheverondownblue' );
+			me._accessibileButton( me.options.title.more, 'vui-icon-moreless-chevron-down' );
 
 			me._$morelink.on( 'click', function( e ) {
 				me._switchMoreLess( height );
@@ -181,7 +181,7 @@
 					me._$moreblur.css( 'display', 'block' );
 				}
 				me._$moreless.css( 'height', inHeight );
-				me._accessibileButton(  me.options.title.more, 'vui-icon-cheverondownblue' );
+				me._accessibileButton(  me.options.title.more, 'vui-icon-moreless-chevron-down' );
 				me._$moreless.trigger( 'vui-moreless-collapse' );
 			} else {
 				me._$moreless.addClass( 'vui-moreless-more' );
@@ -189,7 +189,7 @@
 					me._$moreblur.css( 'display', 'none' );
 				}
 				me._$moreless.css( 'height',  me._$moreless.get( 0 ).scrollHeight );
-				me._accessibileButton( this.options.title.less, 'vui-icon-cheveronupblue' );
+				me._accessibileButton( this.options.title.less, 'vui-icon-moreless-chevron-up' );
 				me._$moreless.trigger( 'vui-moreless-expand' );
 			}
 		},
