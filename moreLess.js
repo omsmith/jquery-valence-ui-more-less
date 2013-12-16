@@ -119,10 +119,13 @@
 					me._$morelink.focus();
 					isTab = false;
 				}
-			} );
-			me._hideShowMore();
-			$(window).load(function() { //chrome is returning a height of 0, need to wait for window to load to get correct height information
-				me._hideShowMore();
+			});
+
+			var moreLessHeight = parseInt(height, 10);
+
+			me._fixMoreLess(moreLessHeight);
+			$(window).load(function() { 
+				me._startPolling(500, moreLessHeight);
 			} );
 		},
 
@@ -150,19 +153,68 @@
 			};
 		},
 
-		_hideShowMore: function() {
+		_startPolling: function (timeout, morelessHeight) {
 			var me = this;
-			if( me._$moreless &&
-				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
-				me._$moreless.height() >=  me._$moreless.get( 0 ).scrollHeight ) {
 
-				var lastchild = me._$moreless.children().last();
-				var h = ( lastchild.position().top  - me._$moreless.position().top ) + lastchild.get(0).scrollHeight;
+			me._fixMoreLess(morelessHeight);
+				
+			setTimeout(
+				function() {
+					me._startPolling(
+						timeout < 10000 ? timeout * 2 : timeout,
+						morelessHeight
+					);
+				},
+				timeout
+			);
+		},
+		
+		_fixMoreLess: function (morelessHeight) {
+			var me = this;
+			me._hideShowMore(morelessHeight);
+			me._showShowMore(morelessHeight);
+		},
+
+		_hideShowMore: function (morelessHeight) {
+			var me = this;
+
+			if (me._$moreless &&
+				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
+				me._$moreless.children().height() < morelessHeight) {
+
+				var h = me._$moreless.children().height();
+
+				if (h === 0) {
+					h = morelessHeight;
+				}
+
 				me._$moreless.height( h );
 				me._$morelink.css( 'display', 'none' );
 
 				if( me._$moreblur ) {
 					me._$moreblur.css( 'display', 'none' );
+				}
+			} else if (me._$moreless &&
+				me._$moreless.children().height() != me._$moreless.height()) {
+
+				me._$moreless.height(me._$moreless.children().height());
+			}
+		},
+		
+		_showShowMore: function(morelessHeight) {
+			var me = this;
+
+			if (me._$moreless &&
+				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
+				me._$moreless.children().height() > morelessHeight) {
+
+				var h = morelessHeight;
+				
+				me._$moreless.height( h );
+				me._$morelink.css( 'display', 'inherit' );
+
+				if( me._$moreblur ) {
+					me._$moreblur.css( 'display', 'inherit' );
 				}
 			}
 		},
@@ -230,7 +282,7 @@
 			if( inColor !== null ) {
 				this.BlurColor( inColor );
 			}
-			this._hideShowMore();
+			this._fixMoreLess();
 		}
 
 	} );
