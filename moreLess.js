@@ -6,7 +6,7 @@
 	// we're in a CommonJS environment; otherwise we'll just fail out
 	if( vui === undefined ) {
 		if( typeof require === 'function' ) {
-			vui = require('../../vui');
+			vui = require('../../core');
 		} else {
 			throw new Error('load vui first');
 		}
@@ -17,7 +17,7 @@
 	if( typeof module === 'object' && typeof module.exports === 'object' ) {
 		module.exports = vui;
 	}
-	
+
 	var $ = vui.$;
 
 	$.widget( "vui.vui_moreless", {
@@ -124,7 +124,7 @@
 			var moreLessHeight = parseInt(height, 10);
 
 			me._fixMoreLess(moreLessHeight);
-			$(window).load(function() { 
+			$(window).load(function() {
 				me._startPolling(500, moreLessHeight);
 			} );
 		},
@@ -157,7 +157,7 @@
 			var me = this;
 
 			me._fixMoreLess(morelessHeight);
-				
+
 			setTimeout(
 				function() {
 					me._startPolling(
@@ -168,7 +168,7 @@
 				timeout
 			);
 		},
-		
+
 		_fixMoreLess: function (morelessHeight) {
 			var me = this;
 			me._hideShowMore(morelessHeight);
@@ -200,7 +200,7 @@
 				me._$moreless.height(me._$moreless.children().height());
 			}
 		},
-		
+
 		_showShowMore: function(morelessHeight) {
 			var me = this;
 
@@ -209,7 +209,7 @@
 				me._$moreless.children().height() > morelessHeight) {
 
 				var h = morelessHeight;
-				
+
 				me._$moreless.height( h );
 				me._$morelink.css( 'display', 'inherit' );
 
@@ -222,7 +222,7 @@
 
 		_switchMoreLess: function( inHeight ) {
 			var me = this;
-			
+
 			if (!me._$moreless.hasClass('vui-moreless-transition-effect')) {
 				me._$moreless.addClass('vui-moreless-transition-effect');
 			}
