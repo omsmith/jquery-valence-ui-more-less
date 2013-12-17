@@ -35,6 +35,7 @@
 		_$moreblur: null,
 		_$moreless: null,
 		_$morelink: null,
+		pollingVariable: null,
 
 		_accessibileButton: function( title, iconClass ) {
 			var me = this;
@@ -124,7 +125,7 @@
 			var moreLessHeight = parseInt(height, 10);
 
 			me._fixMoreLess(moreLessHeight);
-			$(window).load(function() { 
+			$(window).load(function() {
 				me._startPolling(500, moreLessHeight);
 			} );
 		},
@@ -157,8 +158,8 @@
 			var me = this;
 
 			me._fixMoreLess(morelessHeight);
-				
-			setTimeout(
+
+			me.pollingVariable = setTimeout(
 				function() {
 					me._startPolling(
 						timeout < 10000 ? timeout * 2 : timeout,
@@ -168,7 +169,7 @@
 				timeout
 			);
 		},
-		
+
 		_fixMoreLess: function (morelessHeight) {
 			var me = this;
 			me._hideShowMore(morelessHeight);
@@ -244,6 +245,15 @@
 				me._accessibileButton( this.options.title.less, 'vui-icon-moreless-chevron-up' );
 				me._$moreless.trigger( 'vui-moreless-expand' );
 			}
+		},
+		
+		_destroy: function () {
+			var me = this;
+			if (me.pollingVariable !== null) {
+				clearInterval(me.pollingVariable);
+			}
+			
+			me.pollingVariable = false;
 		},
 
 		BlurColor: function( inColor ) {
