@@ -172,6 +172,11 @@
 
 		_fixMoreLess: function (morelessHeight) {
 			var me = this;
+			
+			if (me._$moreless.hasClass('vui-moreless-more')) {
+				return;
+			}
+			
 			me._hideShowMore(morelessHeight);
 			me._showShowMore(morelessHeight);
 		},
@@ -179,15 +184,19 @@
 		_hideShowMore: function (morelessHeight) {
 			var me = this;
 
+			var scrollHeight = me._$moreless.get(0).scrollHeight;
+			var childrenHeight = me._$moreless.children().height();
+
+			// we use the children's height instead of the scroll height because on page load, 
+			// the scroll height will be equal to the moreless height if the control is present
+			// if they are equal then the control will stay in its same state, not changing anything
+			// therefore we calculate the childrens height and use that the first time
+			// we can't use the children's height everytime because it messes up when we use break after
+			
+			var h = scrollHeight == morelessHeight ? childrenHeight : scrollHeight;
+
 			if (me._$moreless &&
-				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
-				me._$moreless.children().height() < morelessHeight) {
-
-				var h = me._$moreless.children().height();
-
-				if (h === 0) {
-					h = morelessHeight;
-				}
+				h < morelessHeight) {
 
 				me._$moreless.height( h );
 				me._$morelink.css( 'display', 'none' );
@@ -196,22 +205,25 @@
 					me._$moreblur.css( 'display', 'none' );
 				}
 			} else if (me._$moreless &&
-				me._$moreless.children().height() != me._$moreless.height()) {
+				h != me._$moreless.height()) {
 
-				me._$moreless.height(me._$moreless.children().height());
+				me._$moreless.height(h);
 			}
 		},
 
 		_showShowMore: function(morelessHeight) {
 			var me = this;
 
+			var scrollHeight = me._$moreless.get(0).scrollHeight;
+			var childrenHeight = me._$moreless.children().height();
+
+			var h = scrollHeight == morelessHeight ? childrenHeight : scrollHeight;
+
+
 			if (me._$moreless &&
-				!me._$moreless.hasClass( 'vui-moreless-more' ) &&
-				me._$moreless.children().height() > morelessHeight) {
+				h >= morelessHeight) {
 
-				var h = morelessHeight;
-
-				me._$moreless.height( h );
+				me._$moreless.height(morelessHeight);
 				me._$morelink.css( 'display', 'inherit' );
 
 				if( me._$moreblur ) {
