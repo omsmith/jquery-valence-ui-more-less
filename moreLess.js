@@ -125,11 +125,7 @@
 			});
 
 			var moreLessHeight = parseInt(height, 10);
-
-			me._fixMoreLess(moreLessHeight);
-			$(window).load(function() {
-				me._startPolling(500, moreLessHeight);
-			} );
+			me._startPolling(125, moreLessHeight);
 		},
 
 		_hexToRgb: function( inHex) {
