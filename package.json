@@ -1,6 +1,6 @@
 {
   "name": "vui-more-less-jquery",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "jQuery-based widget representing a more/less component",
   "main": "moreLess.js",
   "scripts": {
