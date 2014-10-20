@@ -1,26 +1,8 @@
 /*jslint browser: true*/
 
-( function( vui ) {
+( function() {
 
 	'use strict';
-
-	// Check if the provided vui global is defined, otherwise try to require it if
-	// we're in a CommonJS environment; otherwise we'll just fail out
-	if( vui === undefined ) {
-		if( typeof require === 'function' ) {
-			vui = require('../../core');
-		} else {
-			throw new Error('load vui first');
-		}
-	}
-
-	// Export the vui object if we're in a CommonJS environment.
-	// It will already be on the window otherwise
-	if( typeof module === 'object' && typeof module.exports === 'object' ) {
-		module.exports = vui;
-	}
-
-	var $ = vui.$;
 
 	$.widget( "vui.vui_moreless", {
 
@@ -170,11 +152,11 @@
 
 		_fixMoreLess: function (morelessHeight) {
 			var me = this;
-			
+
 			if (me._$moreless.hasClass('vui-moreless-more')) {
 				return;
 			}
-			
+
 			me._hideShowMore(morelessHeight);
 			me._showShowMore(morelessHeight);
 		},
@@ -185,12 +167,12 @@
 			var scrollHeight = me._$moreless.get(0).scrollHeight;
 			var childrenHeight = me._$moreless.children().height();
 
-			// we use the children's height instead of the scroll height because on page load, 
+			// we use the children's height instead of the scroll height because on page load,
 			// the scroll height will be equal to the moreless height if the control is present
 			// if they are equal then the control will stay in its same state, not changing anything
 			// therefore we calculate the childrens height and use that the first time
 			// we can't use the children's height everytime because it messes up when we use break after
-			
+
 			var h = scrollHeight == morelessHeight ? childrenHeight : scrollHeight;
 
 			if (me._$moreless &&
@@ -256,13 +238,13 @@
 				me._$moreless.trigger( 'vui-moreless-expand' );
 			}
 		},
-		
+
 		_destroy: function () {
 			var me = this;
 			if (me.pollingVariable !== null) {
 				clearInterval(me.pollingVariable);
 			}
-			
+
 			me.pollingVariable = false;
 		},
 
@@ -307,11 +289,4 @@
 
 	} );
 
-	vui.addClassInitializer(
-		'vui-moreless',
-		function( node ) {
-			$( node ).vui_moreless();
-		}
-	);
-
-} )( window.vui );
+} )();
