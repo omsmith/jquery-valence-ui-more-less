@@ -39,7 +39,7 @@
 			var me = this;
 
 			me._$moreless = $( this.element );
-			me._$morelink = $( '<div class="vui-moreless-link vui-link" tabindex="0">' );
+			me._$morelink = $( '<div class="vui-moreless-link" tabindex="0">' );
 			me._$moreless.after(  me._$morelink );
 
 			me.options.title.more = me._$moreless.attr( 'data-moreless-moretitle' ) !== undefined ? me._$moreless.attr( 'data-moreless-moretitle' ) : me.options.title.more;
