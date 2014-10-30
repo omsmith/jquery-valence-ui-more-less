@@ -1,9 +1,16 @@
+@import 'node_modules/vui-link/link';
+
 .vui-moreless {
 	overflow: hidden;
 }
 
 .vui-moreless-transition-effect {
 	transition: height 400ms cubic-bezier(0, 0.7, 0.50, 1);
+}
+
+.vui-moreless-link {
+	outline: none;
+	#vui.link();
 }
 
 .vui-moreless-link:focus {
