@@ -87,22 +87,33 @@
 			} );
 
 			var isTab = false;
+			var isShift = false;
 
 			$( document ).keydown( function( e ) {
 				var keyCode = e.keyCode || e.which;
 
-				if( keyCode === 9 ) {
-					isTab = true;
-				} else {
-					isTab = false;
-				}
+				isTab = keyCode === 9;
+				isShift = e.shiftKey;
 			} );
 
 			me._$moreless.focusin( function( event ) {
 				if( ! me._$moreless.hasClass( 'vui-moreless-more' ) && isTab ) {
-					me._$moreless.get( 0 ).scrollTop = 0;
-					me._$morelink.focus();
-					isTab = false;
+				    me._$moreless.get(0).scrollTop = 0;
+
+				    if (isShift) {
+				        var previousElements = me._$moreless.parent().prevAll().find(':tabbable').get().reverse();
+
+				        if (previousElements.length > 0) {
+				            previousElements[0].focus();
+				        }
+
+				        isShift = false;
+
+				    } else {
+				        me._$morelink.focus();
+				    }
+
+				    isTab = false;
 				}
 			});
 
