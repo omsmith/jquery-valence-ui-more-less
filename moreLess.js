@@ -101,10 +101,26 @@
 				    me._$moreless.get(0).scrollTop = 0;
 
 				    if (isShift) {
-				        var previousElements = me._$moreless.parent().prevAll().find(':tabbable').get().reverse();
+				        
+				        var maxTabElement;
 
-				        if (previousElements.length > 0) {
-				            previousElements[0].focus();
+				        $( me._$moreless.parent().prevAll().find( ':tabbable' ).get().reverse() ).each( function () {
+
+				            var currentTabIndex = $( this ).attr( 'tabindex' );
+
+				            if (!maxTabElement) {
+				                maxTabElement = $( this );
+				            } else {
+				                var maxTabIndex = maxTabElement.attr( 'tabindex' );
+
+				                if (currentTabIndex && maxTabIndex && currentTabIndex > maxTabIndex) {
+				                    maxTabElement = $( this );
+				                }
+				            }
+				        });
+
+				        if (maxTabElement) {
+				            maxTabElement.focus();
 				        }
 
 				        isShift = false;
