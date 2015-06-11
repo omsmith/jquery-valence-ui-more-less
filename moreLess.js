@@ -101,30 +101,8 @@
 				    me._$moreless.get(0).scrollTop = 0;
 
 				    if (isShift) {
-				        
-				        var maxTabElement;
-
-				        $( me._$moreless.parent().prevAll().find( ':tabbable' ).get().reverse() ).each( function () {
-
-				            var currentTabIndex = $( this ).attr( 'tabindex' );
-
-				            if (!maxTabElement) {
-				                maxTabElement = $( this );
-				            } else {
-				                var maxTabIndex = maxTabElement.attr( 'tabindex' );
-
-				                if (currentTabIndex && maxTabIndex && currentTabIndex > maxTabIndex) {
-				                    maxTabElement = $( this );
-				                }
-				            }
-				        });
-
-				        if (maxTabElement) {
-				            maxTabElement.focus();
-				        }
-
+				        $( ':tabbable' ).eq( parseInt( $( ':tabbable' ).index( $( event.target ) ), 10 ) - 1 ).focus();
 				        isShift = false;
-
 				    } else {
 				        me._$morelink.focus();
 				    }
