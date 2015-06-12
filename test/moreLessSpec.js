@@ -1,6 +1,16 @@
 ( function() {
 	'use strict';
 
+    // We need it to correct checking of focus of the elements
+    // Solution and this bug on phantomjs described here https://code.google.com/p/phantomjs/issues/detail?id=427
+	var _jQuery_is = jQuery.fn.is;
+	jQuery.fn.is = function ( s ) {
+	    if ( s === ':focus' ) {
+	        return this.get( 0 ) === document.activeElement;
+	    }
+	    return _jQuery_is.apply( this, arguments );
+	};
+
 	describe( 'vui.moreLess', function() {
 
 		var node, $container1;
@@ -135,6 +145,57 @@
 			} );
 
 		} );
+
+		describe( 'checking focus behaviour', function () {
+
+		    beforeEach( function () {
+
+		        $( '<a id="outerLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#outerContainer' );
+		        $( '<a id="contentLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#contentContainer' );
+
+		        $container1.vui_moreless();
+		    });
+
+		    it( 'pressing "Tab" while control is collapsed (focus should be on ".vui-moreless-link" link)', function () {
+
+		        $( '#outerLink' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( $( '.vui-moreless-link' ).is( ":focus" ) ).toBeTruthy();
+		    });
+
+		    it( 'pressing "Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).click();
+
+		        $( '#outerLink' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( $( '#contentLink' ).is( ":focus" ) ).toBeTruthy();
+		    });
+
+		    it( 'pressing "Shift + Tab" while control is collapsed (focus should be on "#outerLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( $( '#outerLink' ).is( ":focus" ) ).toBeTruthy();
+		    });
+
+		    it('pressing "Shift + Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).click();
+
+		        $( '.vui-moreless-link' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( $( '#contentLink' ).is( ":focus" ) ).toBeTruthy();
+		    });
+		});
 
 	} );
 
