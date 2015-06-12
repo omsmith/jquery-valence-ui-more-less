@@ -5,9 +5,10 @@
 
 		var node, $container1;
 
-		var createKeyEvent = function( eventType, keyCode ) {
+		var createKeyEvent = function (eventType, keyCode, shiftKey) {
 			var e = $.Event( eventType );
 			e.keyCode = keyCode;
+		    e.shiftKey = shiftKey;
 			return e;
 		};
 
@@ -86,7 +87,7 @@
 					done();
 				} );
 				$( '.vui-moreless-link' ).focus();
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
 			} );
 
 			it( 'sets the link text when link is clicked to collapse', function() {
@@ -108,8 +109,8 @@
 					done();
 				} );
 				$( '.vui-moreless-link' ).focus();
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
 			} );
 
 		} );
