@@ -1,16 +1,6 @@
 ( function() {
 	'use strict';
 
-    // We need it to correct checking of focus of the elements
-    // Solution and this bug on phantomjs described here https://code.google.com/p/phantomjs/issues/detail?id=427
-	var _jQuery_is = jQuery.fn.is;
-	jQuery.fn.is = function ( s ) {
-	    if ( s === ':focus' ) {
-	        return this.get( 0 ) === document.activeElement;
-	    }
-	    return _jQuery_is.apply( this, arguments );
-	};
-
 	describe( 'vui.moreLess', function() {
 
 		var node, $container1;
@@ -149,6 +139,16 @@
 		describe( 'checking focus behaviour', function () {
 
 		    beforeEach( function () {
+
+		        // We need it to correct checking of focus of the elements
+		        // Solution and this bug on phantomjs described here https://code.google.com/p/phantomjs/issues/detail?id=427
+		        var _jQuery_is = jQuery.fn.is;
+		        jQuery.fn.is = function (s) {
+		            if (s === ':focus') {
+		                return this.get(0) === document.activeElement;
+		            }
+		            return _jQuery_is.apply(this, arguments);
+		        };
 
 		        $( '<a id="outerLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#outerContainer' );
 		        $( '<a id="contentLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#contentContainer' );
