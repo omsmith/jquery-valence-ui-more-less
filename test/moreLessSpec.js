@@ -16,8 +16,9 @@
 			jasmine.addMatchers( vui.jasmine.dom.matchers );
 
 			node = document.body.appendChild( document.createElement( 'div' ) );
+			node.id = 'outerContainer';
 
-			$container1 = $( "<div class='vui-moreless'><p>some content</p></div>" )
+			$container1 = $( "<div class='vui-moreless'><div id='contentContainer'><p>some content</p></div></div>" )
 				.appendTo( node );
 
 		} );
@@ -152,7 +153,7 @@
 		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
 		        $( '#contentLink' ).focus();
 
-		        expect(document.activeElement.className === "vui-moreless-link").toBeTruthy();
+		        expect( document.activeElement.className ).toBe( "vui-moreless-link" );
 		    });
 
 		    it( 'pressing "Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
@@ -163,7 +164,7 @@
 		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
 		        $( '#contentLink' ).focus();
 
-		        expect(document.activeElement.id === "contentLink").toBeTruthy();
+		        expect( document.activeElement.id ).toBe( "contentLink" );
 		    });
 
 		    it( 'pressing "Shift + Tab" while control is collapsed (focus should be on "#outerLink" link)', function () {
@@ -172,7 +173,7 @@
 		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
 		        $( '#contentLink' ).focus();
 
-		        expect(document.activeElement.id === "outerLink").toBeTruthy();
+		        expect( document.activeElement.id ).toBe( "outerLink" );
 		    });
 
 		    it('pressing "Shift + Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
@@ -183,7 +184,7 @@
 		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
 		        $( '#contentLink' ).focus();
 
-		        expect(document.activeElement.id === "contentLink").toBeTruthy();
+		        expect( document.activeElement.id ).toBe( "contentLink" );
 		    });
 		});
 
