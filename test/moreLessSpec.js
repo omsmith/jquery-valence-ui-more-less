@@ -5,9 +5,10 @@
 
 		var node, $container1;
 
-		var createKeyEvent = function( eventType, keyCode ) {
+		var createKeyEvent = function (eventType, keyCode, shiftKey) {
 			var e = $.Event( eventType );
 			e.keyCode = keyCode;
+		    e.shiftKey = shiftKey;
 			return e;
 		};
 
@@ -16,8 +17,9 @@
 			jasmine.addMatchers( vui.jasmine.dom.matchers );
 
 			node = document.body.appendChild( document.createElement( 'div' ) );
+			node.id = 'outerContainer';
 
-			$container1 = $( "<div class='vui-moreless'><p>some content</p></div>" )
+			$container1 = $( "<div class='vui-moreless'><div id='contentContainer'><p>some content</p></div></div>" )
 				.appendTo( node );
 
 		} );
@@ -85,7 +87,7 @@
 					done();
 				} );
 				$( '.vui-moreless-link' ).focus();
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
 			} );
 
 			it( 'sets the link text when link is clicked to collapse', function() {
@@ -107,8 +109,8 @@
 					done();
 				} );
 				$( '.vui-moreless-link' ).focus();
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
-				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13 ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
+				$( '.vui-moreless-link' ).trigger( createKeyEvent( 'keypress', 13, false ) );
 			} );
 
 		} );
@@ -135,6 +137,57 @@
 			} );
 
 		} );
+
+		describe( 'checking focus behaviour', function () {
+
+		    beforeEach( function () {
+
+		        $( '<a id="outerLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#outerContainer' );
+		        $( '<a id="contentLink" href="http://focusable.com" >focusable element</a>' ).appendTo( '#contentContainer' );
+
+		        $container1.vui_moreless();
+		    });
+
+		    it( 'pressing "Tab" while control is collapsed (focus should be on ".vui-moreless-link" link)', function () {
+
+		        $( '#outerLink' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( document.activeElement.className ).toBe( "vui-moreless-link" );
+		    });
+
+		    it( 'pressing "Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).click();
+
+		        $( '#outerLink' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, false ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( document.activeElement.id ).toBe( "contentLink" );
+		    });
+
+		    it( 'pressing "Shift + Tab" while control is collapsed (focus should be on "#outerLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( document.activeElement.id ).toBe( "outerLink" );
+		    });
+
+		    it('pressing "Shift + Tab" while control is expanded (focus should be on "#contentLink" link)', function () {
+
+		        $( '.vui-moreless-link' ).click();
+
+		        $( '.vui-moreless-link' ).focus();
+		        $( document ).trigger( createKeyEvent( 'keydown', 9, true ) );
+		        $( '#contentLink' ).focus();
+
+		        expect( document.activeElement.id ).toBe( "contentLink" );
+		    });
+		});
 
 	} );
 
