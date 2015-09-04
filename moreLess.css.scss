@@ -1,4 +1,5 @@
-@import 'node_modules/vui-link/link';
+@import 'bower_components/vui-link/link';
+@import 'icons';
 
 .vui-moreless {
 	overflow: hidden;
@@ -10,7 +11,7 @@
 
 .vui-moreless-link {
 	outline: none;
-	#vui.Link();
+	@include vui-link;
 }
 
 .vui-moreless-link:focus {
@@ -25,9 +26,9 @@
 }
 
 .vui-icon-moreless-chevron-down:before {
-	content: data-uri('image/png;base64','cheveron_down_blue.png');
+	content: $vui-cheveron-down-blue;
 }
 
 .vui-icon-moreless-chevron-up:before {
-	content: data-uri('image/png;base64','cheveron_up_blue.png');
+	content: $vui-cheveron-up-blue;
 }

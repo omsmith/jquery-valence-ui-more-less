@@ -1,25 +1,7 @@
-var bower = require('gulp-bower'),
-	coveralls = require('gulp-coveralls'),
-	del = require('del'),
+var coveralls = require('gulp-coveralls'),
 	gulp = require('gulp'),
 	jshint = require('gulp-jshint'),
 	vui = require('vui-helpers');
-
-gulp.task( 'clean', function( cb ) {
-	del( [ 'moreLess.css' ], cb );
-} );
-
-gulp.task( 'lib', function() {
-	return bower('lib/');
-} );
-
-gulp.task( 'css', function () {
-	return vui.makeCss(
-		'moreLess.css.less',
-		'moreLess.css',
-		{ 'lintOpts' : '.csslintrc' }
-	);
-} );
 
 gulp.task( 'jshint', function() {
 	return gulp.src( ['gulpfile.js', 'moreLess.js', 'test/*.js'] )
@@ -32,12 +14,12 @@ gulp.task( 'coverage', function() {
 		.pipe( coveralls() );
 } );
 
-gulp.task( 'test', [ 'lib' ], function () {
+gulp.task( 'test', [ 'jshint' ], function () {
 	return vui.test( {
 		files: [
-			'lib/jquery/jquery.min.js',
-			'lib/jquery.ui/ui/jquery.ui.core.js',
-			'lib/jquery.ui/ui/jquery.ui.widget.js',
+			'bower_components/jquery/jquery.min.js',
+			'bower_components/jquery.ui/ui/jquery.ui.core.js',
+			'bower_components/jquery.ui/ui/jquery.ui.widget.js',
 			'moreLess.js',
 			'test/**/*Spec.js',
 			'moreLess.css'
@@ -46,8 +28,4 @@ gulp.task( 'test', [ 'lib' ], function () {
 			'moreLess.js': ['coverage']
 		}
 	} ) ;
-} );
-
-gulp.task( 'default', [ 'clean' ], function() {
-	gulp.start( 'css', 'jshint' );
 } );
