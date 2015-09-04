@@ -1,13 +1,21 @@
 {
-"name": "jquery-vui-more-less",
-"private": true,
-"ignore": [
-	"**/.*",
-	"node_modules",
-	"bower_components"
-],
-"devDependencies": {
-	"jquery": "~2.0.3",
-	"jquery.ui": "~1.10.3"
-}
+  "name": "jquery-vui-more-less",
+  "license": "Apache-2.0",
+  "ignore": [
+    "test",
+    ".csslintrc",
+    ".editorconfig",
+    ".gitignore",
+    ".npmignore",
+    ".travis.yml",
+	"gulpfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+	  "vui-link": "~0.7.0"
+  },
+  "devDependencies": {
+    "jquery": "~2.0.3",
+    "jquery.ui": "~1.10.3"
+  }
 }
