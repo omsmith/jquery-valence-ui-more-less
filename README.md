@@ -7,6 +7,11 @@
 
 A jQuery-based widget for limiting blocks of content with more/less behaviour.
 
+For further information on this component and other VUI components, see the docs at [ui.valence.d2l.com](http://ui.valence.d2l.com/).
+
+#### Coding styles
+See the [VUI Best Practices & Style Guide](https://github.com/Brightspace/valence-ui-docs/wiki/Best-Practices-&-Style-Guide) for information on VUI naming conventions, plus information about the [EditorConfig](http://editorconfig.org) rules used in this repo.
+
 [bower-url]: http://bower.io/search/?q=jquery-vui-more-less
 [bower-image]: https://img.shields.io/bower/v/jquery-vui-more-less.svg
 [npm-url]: https://npmjs.org/package/jquery-vui-more-less
