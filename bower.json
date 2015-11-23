@@ -8,11 +8,11 @@
     ".gitignore",
     ".npmignore",
     ".travis.yml",
-	"gulpfile.js",
+    "gulpfile.js",
     "package.json"
   ],
   "dependencies": {
-	  "vui-link": "~0.7.0"
+    "vui-link": "~1.0.1"
   },
   "devDependencies": {
     "jquery": "~2.0.3",
