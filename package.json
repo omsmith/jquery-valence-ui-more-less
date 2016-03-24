@@ -30,7 +30,7 @@
   "homepage": "https://github.com/Brightspace/jquery-valence-ui-more-less",
   "dependencies": {
     "bower": "^1.5.2",
-    "vui-link": "git://github.com/Brightspace/valence-ui-link.git#bsi-wc",
+    "vui-link": "git://github.com/Brightspace/valence-ui-link.git#bsi-wc"
   },
   "devDependencies": {
     "gulp": "^3.8.8",
