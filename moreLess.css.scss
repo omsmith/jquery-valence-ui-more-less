@@ -1,4 +1,4 @@
-@import 'bower_components/vui-link/link';
+@import 'bower_components/d2l-colors/d2l-colors.scss';
 @import 'icons';
 
 .vui-moreless {
@@ -11,7 +11,21 @@
 
 .vui-moreless-link {
 	outline: none;
-	@include vui-link;
+	&,
+	&:visited,
+	&:link,
+	&:active {
+		color: $d2l-color-celestine;
+		font-weight: normal;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	&:hover,
+	&:focus {
+		color: $d2l-color-celestuba;
+		text-decoration: underline;
+		outline-width: 0;
+	}
 }
 
 .vui-moreless-link:focus {

@@ -12,7 +12,7 @@
     "package.json"
   ],
   "dependencies": {
-    "vui-link": "~1.1.0"
+    "d2l-colors": "~2.0.0"
   },
   "devDependencies": {
     "jquery": "~2.0.3",
