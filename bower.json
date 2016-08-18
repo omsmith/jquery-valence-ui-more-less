@@ -12,10 +12,10 @@
     "package.json"
   ],
   "dependencies": {
-    "d2l-colors": "^2.0.0"
+    "d2l-colors": "^2.1.0"
   },
   "devDependencies": {
-    "jquery": "^2.0.3",
-    "jquery.ui": "^1.10.3"
+    "jquery": "~2.0.3",
+    "jquery.ui": "~1.10.3"
   }
 }
