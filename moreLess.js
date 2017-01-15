@@ -169,16 +169,14 @@
 		_hideShowMore: function (morelessHeight) {
 			var me = this;
 
-			var scrollHeight = me._$moreless.get(0).scrollHeight;
-			var childrenHeight = me._$moreless.children().height();
-
 			// we use the children's height instead of the scroll height because on page load,
 			// the scroll height will be equal to the moreless height if the control is present
 			// if they are equal then the control will stay in its same state, not changing anything
 			// therefore we calculate the childrens height and use that the first time
 			// we can't use the children's height everytime because it messes up when we use break after
 
-			var h = scrollHeight == morelessHeight ? childrenHeight : scrollHeight;
+			var scrollHeight = me._$moreless.get(0).scrollHeight;
+			var h = scrollHeight == morelessHeight ? me._$moreless.children().height() : scrollHeight;
 
 			if (me._$moreless &&
 				h < morelessHeight) {
@@ -200,10 +198,7 @@
 			var me = this;
 
 			var scrollHeight = me._$moreless.get(0).scrollHeight;
-			var childrenHeight = me._$moreless.children().height();
-
-			var h = scrollHeight == morelessHeight ? childrenHeight : scrollHeight;
-
+			var h = scrollHeight == morelessHeight ? me._$moreless.children().height() : scrollHeight;
 
 			if (me._$moreless &&
 				h >= morelessHeight) {
