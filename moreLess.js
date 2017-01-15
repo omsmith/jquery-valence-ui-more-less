@@ -19,7 +19,7 @@
 		_$moreblur: null,
 		_$moreless: null,
 		_$morelink: null,
-		pollingVariable: null,
+		_observer: null,
 
 		_accessibileButton: function( title, iconClass ) {
 			var me = this;
@@ -112,7 +112,8 @@
 			});
 
 			var moreLessHeight = parseInt(height, 10);
-			me._startPolling(125, moreLessHeight);
+			me._observer = new MutationObserver(me._fixMoreLess.bind(me, moreLessHeight));
+			me._observer.observe(me._$moreless.get(0), { childList: true });
 		},
 
 		_hexToRgb: function( inHex) {
@@ -137,22 +138,6 @@
 				green: g,
 				blue: b
 			};
-		},
-
-		_startPolling: function (timeout, morelessHeight) {
-			var me = this;
-
-			me._fixMoreLess(morelessHeight);
-
-			me.pollingVariable = setTimeout(
-				function() {
-					me._startPolling(
-						timeout < 10000 ? timeout * 2 : timeout,
-						morelessHeight
-					);
-				},
-				timeout
-			);
 		},
 
 		_fixMoreLess: function (morelessHeight) {
@@ -241,11 +226,10 @@
 
 		_destroy: function () {
 			var me = this;
-			if (me.pollingVariable !== null) {
-				clearInterval(me.pollingVariable);
+			if (me._observer !== null) {
+				me._observer.disconnect();
+				me._observer = null;
 			}
-
-			me.pollingVariable = false;
 		},
 
 		BlurColor: function( inColor ) {
